@@ -1,0 +1,32 @@
+package controleAlunos;
+
+import java.util.HashSet;
+
+public class GrupoEstudo {
+	
+	private String nome;
+	private String restricao;
+	private HashSet<Aluno> alunos;
+	
+	public GrupoEstudo(String nome, String restricao) {
+		this.nome = nome;
+		this.restricao = restricao;
+	}
+	
+	public String getNome() {
+		return this.nome;
+	}
+	
+	public String getRestricao() {
+		return this.restricao;
+	}
+	
+	public HashSet<Aluno> getAlunos() {
+		return this.alunos;
+	}
+	
+	public void adicionaAluno(Aluno aluno) {
+		this.alunos.add(aluno);
+	}
+	
+}

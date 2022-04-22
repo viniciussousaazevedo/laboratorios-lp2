@@ -1,0 +1,29 @@
+package ufcg.ccc.domino;
+
+import java.util.HashMap;
+import java.util.List;
+
+public class TipoDePecaPersonalizada {
+
+	private List<Peca> pecas;
+	private HashMap<Integer, String> regraDePersonalizacao;
+	
+	public TipoDePecaPersonalizada(String num0, String num1, String num2, String num3, String num4, String num5, String num6) {
+		this.regraDePersonalizacao.put(0, num0);
+		this.regraDePersonalizacao.put(1, num1);
+		this.regraDePersonalizacao.put(2, num2);
+		this.regraDePersonalizacao.put(3, num3);
+		this.regraDePersonalizacao.put(4, num4);
+		this.regraDePersonalizacao.put(5, num5);
+		this.regraDePersonalizacao.put(6, num6);
+	}
+	
+	public boolean criaPeca(int numNaEsquerda, int numNaDireita) {
+		return this.pecas.add(new Peca(numNaEsquerda, numNaDireita));
+	}
+	
+	public List<Peca> personalizaPecas(List<Peca> pecas) {
+		
+	}
+	
+}

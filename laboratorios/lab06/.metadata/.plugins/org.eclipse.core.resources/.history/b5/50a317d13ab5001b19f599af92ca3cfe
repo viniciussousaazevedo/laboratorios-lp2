@@ -1,0 +1,13 @@
+package ufcg.ccc.domino.estrategia;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class JogaPrimeiraPossivelComparadoraTest {
+
+	private EstrategiaDeJogo estrategia;
+	
+	
+
+}

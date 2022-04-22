@@ -1,0 +1,20 @@
+package ufcg.ccc.domino.estrategia;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ufcg.ccc.domino.Jogada;
+import ufcg.ccc.domino.Peca;
+
+public class EstrategiaComposta implements EstrategiaDeJogo {
+	
+	public EstrategiaComposta(ArrayList<EstrategiaDeJogo> estrategias) {
+		
+	}
+
+	@Override
+	public Jogada decideJogada(List<Peca> mao, VisaoDaMesa mesa) {
+		return null;
+	}
+	
+}

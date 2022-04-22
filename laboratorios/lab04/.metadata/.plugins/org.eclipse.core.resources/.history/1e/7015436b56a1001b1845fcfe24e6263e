@@ -1,0 +1,4 @@
+module LAB4_VINICIUS_SOUSA_AZEVEDO {
+	requires junit;
+	requires org.junit.jupiter.api;
+}

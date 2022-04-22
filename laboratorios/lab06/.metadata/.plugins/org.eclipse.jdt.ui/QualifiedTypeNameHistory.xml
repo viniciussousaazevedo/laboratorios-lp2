@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="ufcg.ccc.domino.estrategia.JogaPrimeiraPossivel"/>
+    <fullyQualifiedTypeName name="java.util.Collections"/>
+    <fullyQualifiedTypeName name="ufcg.ccc.domino.estrategia.PecaPadraoComparator"/>
+    <fullyQualifiedTypeName name="ufcg.ccc.domino.estrategia.JogaPrimeiraPossivelComparadora"/>
+    <fullyQualifiedTypeName name="java.util.Comparator"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.BeforeEach"/>
+    <fullyQualifiedTypeName name="ufcg.ccc.domino.Peca"/>
+    <fullyQualifiedTypeName name="ufcg.ccc.domino.Mesa"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="ufcg.ccc.domino.Jogada.TipoJogada"/>
+    <fullyQualifiedTypeName name="ufcg.ccc.domino.Jogada"/>
+    <fullyQualifiedTypeName name="ufcg.ccc.domino.TipoDePecaPersonalizada"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="com.sun.tools.javac.parser.Scanner"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+</qualifiedTypeNameHistroy>

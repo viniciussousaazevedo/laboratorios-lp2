@@ -1,0 +1,16 @@
+package ufcg.ccc.domino;
+
+import java.util.List;
+
+public class GeradorDePecasPersonalizadas {
+
+	public List<Peca> CriaMao() {
+		
+		return null;
+	}
+
+	public List<Peca> criaPecas(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

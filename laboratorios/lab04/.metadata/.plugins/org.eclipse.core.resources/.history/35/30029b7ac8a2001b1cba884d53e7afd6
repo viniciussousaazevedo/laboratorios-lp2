@@ -1,0 +1,148 @@
+package tests;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import controleAlunos.Aluno;
+import controleAlunos.ControleAlunos;
+
+class ControleAlunosTest {
+
+	private ControleAlunos controle;
+	
+	@BeforeEach
+	void initControleAlunos() {
+		this.controle = new ControleAlunos();
+		this.controle.cadastraAluno("250", "Gabriel Reyes", "Computação");
+		this.controle.cadastraAluno("200","Lili Camposh", "Computação");
+		this.controle.cadastraAluno("202","Angela Ziegier", "Medicina");
+		this.controle.cadastraAluno("201","Torbjorn Lindholm", "Engenharia Mecânica");
+	}
+	
+	@Test
+	void testCadastraAlunoExistente() {
+		assertFalse(this.controle.cadastraAluno("250", "Gabriel", "Administração"));
+	}
+	
+	@Test
+	void testExibeAluno() {
+		assertEquals("Aluno: 250 - Gabriel Reyes - Computação", this.controle.exibeAluno("250"));
+		assertEquals("", this.controle.exibeAluno("100"));
+	}
+	
+	@Test
+	void testCadastraGrupoSemRestricao() {
+		assertTrue(this.controle.cadastraGrupo("Programação OO", ""));
+		assertEquals("", this.controle.getGruposEstudo().get("Programação OO").getRestricao());
+	}
+	
+	@Test
+	void testCadastraGrupoComRestricao() {
+		assertTrue(this.controle.cadastraGrupo("Listas", "Computação"));
+		assertEquals("Computação", this.controle.getGruposEstudo().get("Listas").getRestricao());
+	}
+	
+	@Test
+	void testCadastraGrupoExistente() {
+		this.controle.cadastraGrupo("Listas", "Computação");
+		assertFalse(this.controle.cadastraGrupo("Listas", ""));
+	}
+
+	@Test
+	void AlocarAlunoGrupo() {
+		this.controle.cadastraGrupo("Programação OO", "");
+		
+		assertTrue(controle.alocaAlunoGrupo("200", "Programação OO"));
+		assertTrue(controle.alocaAlunoGrupo("202", "Programação OO"));
+		assertTrue(controle.alocaAlunoGrupo("200", "Programação OO"));
+		
+		assertTrue(this.controle.pertinenciaGrupo("Programação OO", "200"));
+		assertTrue(this.controle.pertinenciaGrupo("Programação OO", "202"));
+		assertEquals(2 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		
+		
+	}
+
+	@Test
+	void testAlocaAlunoInexistente() {
+		this.controle.cadastraGrupo("Programação OO", "");
+		assertFalse(this.controle.alocaAlunoGrupo("100", "Programação OO"));
+	}
+
+	@Test
+	void testAlocaGrupoInexistente() {
+		assertFalse(this.controle.alocaAlunoGrupo("200", "Anatomia"));
+	}
+
+	@Test
+	void testAlocaAlunoGrupoRestrito() {
+		this.controle.cadastraGrupo("Listas", "Computação");
+		
+		assertTrue(this.controle.alocaAlunoGrupo("250", "Listas"));
+		assertFalse(this.controle.alocaAlunoGrupo("202", "Listas"));
+	}
+	
+	@Test
+	void testPertinencia() {
+		this.controle.cadastraGrupo("Listas", "Computação");
+		this.controle.alocaAlunoGrupo("250", "Listas");
+		this.controle.alocaAlunoGrupo("202", "Listas");
+		
+		assertTrue(this.controle.pertinenciaGrupo("Listas", "250"));
+		assertFalse(this.controle.pertinenciaGrupo("Listas", "202"));
+	}
+	
+	@Test
+	void testPertinenciaInvalida() {
+		this.controle.cadastraGrupo("Listas", "Computação");
+		this.controle.alocaAlunoGrupo("250", "Listas");
+		this.controle.alocaAlunoGrupo("202", "Listas");
+		
+		assertFalse(this.controle.pertinenciaGrupo("List", "250"));
+		assertFalse(this.controle.pertinenciaGrupo("Listas", "300"));
+	}
+	
+	@Test
+	void testCadastraAlunoQueResponde() {
+		assertTrue(this.controle.cadastraAlunoQueResponde("250"));
+		assertFalse(this.controle.cadastraAlunoQueResponde("100"));
+	}
+
+	@Test
+	void testListaAlunosQueRespondem() {
+		this.controle.cadastraAlunoQueResponde("250");
+		this.controle.cadastraAlunoQueResponde("200");
+		this.controle.cadastraAlunoQueResponde("202");
+		
+		assertEquals("\nAlunos:"
+				+ "\n1. 250 - Gabriel Reyes - Computação"
+				+ "\n2. 200 - Lili Camposh - Computação"
+				+ "\n3. 202 - Angela Ziegier - Medicina", this.controle.listaAlunosQueRespondem());
+	}
+	
+	@Test
+	void testContagemGruposRestricao() {
+		this.controle.cadastraGrupo("Listas", "Computação");
+		
+		this.controle.cadastraGrupo("Exercicios", "Administração");
+		this.controle.cadastraGrupo("Palestras", "Administração");
+		
+		this.controle.cadastraAluno("260", "Emanuel", "Administração");
+		this.controle.cadastraAluno("270", "Emanuela", "Administração");
+		this.controle.cadastraAluno("271", "Roberta", "Engenharia Civil");
+		
+		assertEquals("\nCurso: Engenharia Mecânica\n"
+				+ "Engenharia Mecânica 0\n"
+				+ "\nCurso: Computação\n"
+				+ "Computação 1\n"
+				+ "\nCurso: Engenharia Civil\n"
+				+ "Engenharia Civil 0\n"
+				+ "\nCurso: Administração\n"
+				+ "Administração 2\n"
+				+ "\nCurso: Medicina\n"
+				+ "Medicina 0\n"
+				, this.controle.contagemGruposRestricao());
+	}
+}

@@ -1,0 +1,38 @@
+package ufcg.ccc.domino.estrategia;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ufcg.ccc.domino.Jogada;
+import ufcg.ccc.domino.Peca;
+
+public class EstrategiaDeJogoComposta implements EstrategiaDeJogo {
+	
+	private ArrayList<EstrategiaDeJogo> estrategias;
+	private int contador;
+	
+	public EstrategiaDeJogoComposta(ArrayList<EstrategiaDeJogo> estrategias) {
+		this.estrategias = estrategias;
+		this.contador = 0;
+	}
+
+	@Override
+	public Jogada decideJogada(List<Peca> mao, VisaoDaMesa mesa) {
+		
+		Jogada retorno = this.estrategias.get(contador).decideJogada(mao, mesa);
+		
+		if (this.contador < this.estrategias.size()-1) {
+			this.contador++;
+		} else {
+			this.contador = 0;
+		}
+		
+		return retorno;
+		
+	}
+	
+	@Override
+	public String toString() {
+		return "Estratégia de jogos composta";
+	}
+}

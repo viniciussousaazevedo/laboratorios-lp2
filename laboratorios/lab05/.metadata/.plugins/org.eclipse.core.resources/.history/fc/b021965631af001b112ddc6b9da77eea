@@ -1,0 +1,94 @@
+package ufcg.ccc.domino.estrategia;
+
+import java.util.HashMap;
+import java.util.List;
+
+import ufcg.ccc.domino.Jogada;
+import ufcg.ccc.domino.Peca;
+import ufcg.ccc.domino.Jogada.TipoJogada;
+
+/**
+ * O jogador analisa toda sua mão, procurando qual o número entre as peças que mais se repete. Com o número identificado, o jogador agora
+ * escolhe a próxima peça a jogar de acordo com a seguinte prioridade:
+ * 1 - Carroça do número mais repetido;
+ * 2 - Peças que contenham o número repetido mais a esquerda de sua mão;
+ * 3 - Peças que não possuem o número repetido mais a esquerda de sua mão.
+ * 
+ * O jogador, caso precise, irá sempre preferir jogar no lado esquerdo da mesa.
+ * Caso haja mais de um número com a maior quantidade de repetições, será escolhido o primeiro número que chegar ao valor máximo.
+ */
+public class JogaPecaComNumMaisRepetido implements EstrategiaDeJogo {
+
+	@Override
+	public Jogada decideJogada(List<Peca> mao, VisaoDaMesa mesa) {
+		int numMaisRepetido = this.identificaNumMaisRepetido(mao);
+		TipoJogada ladoEscolhido = TipoJogada.NA_ESQUERDA;
+		Peca pecaEscolhida = null;
+		
+		if (mesa.getNumPecas() == 0) {
+			pecaEscolhida = mao.get(0);
+			for (Peca p : mao) {
+				if (p.getNumEsquerdo() == numMaisRepetido && p.getNumDireito() == numMaisRepetido) {
+					pecaEscolhida = p;
+					return new Jogada(pecaEscolhida, ladoEscolhido);
+				}
+				if (p.encaixa(numMaisRepetido) && pecaEscolhida == mao.get(0)) {
+					pecaEscolhida = p;
+				}
+			}
+			return new Jogada(pecaEscolhida, ladoEscolhido);
+		}
+		
+		for (Peca p : mao) {
+			if (p.encaixa(mesa.getNumNaEsquerda()) || p.encaixa(mesa.getNumNaDireita())) {
+				TipoJogada ladoAtual = (p.encaixa(mesa.getNumNaEsquerda()) ? TipoJogada.NA_ESQUERDA : TipoJogada.NA_DIREITA);
+				if (p.getNumEsquerdo() == numMaisRepetido && p.getNumDireito() == numMaisRepetido) {
+					pecaEscolhida = p;
+					ladoEscolhido = ladoAtual;
+					return new Jogada(pecaEscolhida, ladoEscolhido);
+				}
+				
+				if (pecaEscolhida == null) {
+					pecaEscolhida = p;
+					ladoEscolhido = ladoAtual;
+				}
+				
+				if (p.encaixa(numMaisRepetido) && (pecaEscolhida == null || !pecaEscolhida.encaixa(numMaisRepetido))) {
+					pecaEscolhida = p;
+					ladoEscolhido = ladoAtual;
+				}
+			}
+		}
+		if (pecaEscolhida == null) {
+			return new Jogada();
+		}
+		return new Jogada(pecaEscolhida, ladoEscolhido);
+		
+	}
+	
+	private int identificaNumMaisRepetido(List<Peca> mao) {
+		HashMap<Integer, Integer> numeros = new HashMap<Integer, Integer>();
+		int maiorNumero = 0;
+		int repeticoesNumero = 0;
+		
+		numeros.put(1, 0); numeros.put(2, 0); numeros.put(3, 0); numeros.put(4, 0); numeros.put(5, 0); numeros.put(6, 0);
+		
+		for (Peca p : mao) {
+			numeros.put(p.getNumEsquerdo(), p.getNumEsquerdo()+1);
+			numeros.put(p.getNumDireito(), p.getNumDireito()+1);
+		}
+		
+		for (int n : numeros.keySet()) {
+			if (numeros.get(n) > repeticoesNumero) {
+				maiorNumero = n;
+				repeticoesNumero = numeros.get(n);
+			}
+		}
+		return maiorNumero;
+	}
+	
+	public String toString() {
+		return "Joga peça com número mais repetido";
+	}
+
+}

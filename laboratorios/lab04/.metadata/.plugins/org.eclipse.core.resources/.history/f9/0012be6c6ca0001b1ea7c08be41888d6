@@ -1,0 +1,12 @@
+package app;
+
+public class GrupoEstudo {
+    private String nome;
+    private String restricao;
+    private HashSet<Aluno> alunos;
+    public Grupo(String nome, String restricao) {
+
+   }
+
+    
+}

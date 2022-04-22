@@ -1,0 +1,97 @@
+package tests;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import controleAlunos.Aluno;
+import controleAlunos.ControleAlunos;
+
+class ControleAlunosTest {
+
+	private ControleAlunos controle;
+	
+	@BeforeEach
+	void initControleAlunos() {
+		this.controle = new ControleAlunos();
+		this.controle.cadastraAluno("250", "Gabriel Reyes", "Computação");
+		this.controle.cadastraAluno("200","Lili Camposh", "Computação");
+		this.controle.cadastraAluno("202","Angela Ziegier", "Medicina");
+		this.controle.cadastraAluno("201","Torbjorn Lindholm", "Engenharia Mecânica");
+	}
+	
+	@Test
+	void testCadastraGrupoSemRestricao() {
+		assertTrue(this.controle.cadastraGrupo("Programação OO", ""));
+		assertEquals("", this.controle.getGruposEstudo().get("Programação OO").getRestricao());
+	}
+	
+	@Test
+	void testCadastraGrupoComRestricao() {
+		assertTrue(this.controle.cadastraGrupo("Listas", "Computação"));
+		assertEquals("Computação", this.controle.getGruposEstudo().get("Listas").getRestricao());
+	}
+	
+	@Test
+	void testCadastraGrupoNomeExistente() {
+		this.controle.cadastraGrupo("Listas", "Computação");
+		assertFalse(this.controle.cadastraGrupo("Listas", ""));
+	}
+
+	@Test
+	void AlocarAlunoGrupo() {
+		this.controle.cadastraGrupo("Programação OO", "");
+		
+		assertEquals(0 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		assertTrue(controle.alocaAlunoGrupo("200", "Programação OO"));
+		assertEquals(1 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		assertTrue(controle.alocaAlunoGrupo("202", "Programação OO"));
+		assertEquals(2 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		assertTrue(controle.alocaAlunoGrupo("200", "Programação OO"));
+		assertEquals(2 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		
+	}
+
+	@Test
+	void testAlocaAlunoNull() {
+		this.controle.cadastraGrupo("Programação OO", "");
+		assertFalse(controle.alocaAlunoGrupo("100", "Programação OO"));
+	}
+
+	@Test
+	void testAlocaGrupoNull() {
+		assertFalse(controle.alocaAlunoGrupo("200", "Anatomia"));
+	}
+
+	@Test
+	void testAlocaAlunoGrupoRestrito() {
+		controle.cadastraGrupo("Listas", "Computação");
+		
+		assertTrue(controle.alocaAlunoGrupo("250", "Listas"));
+		assertFalse(controle.alocaAlunoGrupo("202", "Listas"));
+	}
+	
+	@Test
+	void testPertinencia() {
+		controle.cadastraGrupo("Listas", "Computação");
+		controle.alocaAlunoGrupo("250", "Listas");
+		controle.alocaAlunoGrupo("202", "Listas");
+		
+		assertTrue(controle.pertinenciaGrupo("Listas", "250"));
+		assertFalse(controle.pertinenciaGrupo("Listas", "202"));
+	}
+	
+	@Test
+	void testContagemGruposRestricao() {
+		controle.cadastraGrupo("Listas", "Computação");
+		controle.alocaAlunoGrupo("250", "Listas");
+		
+		assertEquals("\nCurso: Computação\n"
+				+ "Computação 1\n"
+				+ "Curso: Medicina\n"
+				+ "Medicina 0"
+				+ "\nEgenharia Mecânica\n"
+				+ "Engenharia Mecânica 0", controle.contagemGruposRestricao());
+	}
+}

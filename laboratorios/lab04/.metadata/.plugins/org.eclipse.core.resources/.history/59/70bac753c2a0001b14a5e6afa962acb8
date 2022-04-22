@@ -1,0 +1,88 @@
+package controleAlunos;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		while (true) {
+			menu();
+		}
+	}
+	
+	public static void menu() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print(
+				"\n(C)adastrar Aluno\n"
+				+ "(E)xibir Aluno\n"
+				+ "(N)ovo Grupo\n"
+				+ "(A)locar Aluno on Grupo e Verificar pertiência a Grupos\n"
+				+ "(R)egistrar Aluo que Respondeu\n"
+				+ "(I)mprimir Alunos que Responderam\n"
+				+ "(O)xe, e a contagem dos grupos com restrição de curso?\n"
+				+ "(S)im, quero fechar o programa!\n\n"
+				+ "Opção> "
+				);
+		String opcao = sc.nextLine().toLowerCase();
+		comando(sc, opcao);
+	}
+	
+	public static void comando(Scanner sc, String opcao) {
+		switch (opcao) {
+			case "c":
+				break;
+			case "e":
+				break;
+			case "n":
+				break;
+			case "a":
+				break;
+			case "r":
+				break;
+			case "i":
+				break;
+			case "o":
+				break;
+			case "s":
+				break;
+			default:
+				throw new IllegalArgumentException("INSIRA UM VALOR VÁLIDO!\n");
+		}
+	}
+	
+	public static void cadastraAluno() {
+		
+	}
+	
+	public static void exibeAluno() {
+		
+	}
+	
+	public static void cadastraGrupo() {
+		
+	}
+	
+	public static void alocaAlunoGrupo() {
+		
+	}
+	
+	public static void pertinenciaGrupo() {
+		
+	}
+	
+	public static void cadastraAlunoQueResponde() {
+		
+	}
+	
+	public static void listaAlunosQueRespondem() {
+		
+	}
+	
+	public static void contagemGruposRestricao() {
+		
+	}
+	
+	public static void sair() {
+		
+	}
+}

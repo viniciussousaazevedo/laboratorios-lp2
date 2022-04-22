@@ -1,0 +1,52 @@
+package controleAlunos;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+	}
+	
+	public static void menu() {
+		
+	}
+	
+	public static void comando() {
+		
+	}
+	
+	public static void cadastraAluno() {
+		
+	}
+	
+	public static void exibeAluno() {
+		
+	}
+	
+	public static void cadastraGrupo() {
+		
+	}
+	
+	public static void alocaAlunoGrupo() {
+		
+	}
+	
+	public static void pertinenciaGrupo() {
+		
+	}
+	
+	public static void cadastraAlunoQueResponde() {
+		
+	}
+	
+	public static void listaAlunosQueRespondem() {
+		
+	}
+	
+	public static void contagemGruposRestricao() {
+		
+	}
+	
+	public static void sair() {
+		
+	}
+}

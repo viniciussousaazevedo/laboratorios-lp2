@@ -1,0 +1,3 @@
+module LAB4_VINICIUS_SOUSA_AZEVEDO {
+	requires junit;
+}

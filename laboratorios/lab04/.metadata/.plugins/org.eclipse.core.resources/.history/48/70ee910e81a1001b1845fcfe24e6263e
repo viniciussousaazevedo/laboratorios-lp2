@@ -1,0 +1,138 @@
+package controleAlunos;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class ControleAlunos {
+	
+	private HashMap<String, Aluno> alunos;
+	private HashMap<String, GrupoEstudo> gruposEstudo;
+	private HashMap<String, Integer> cursosAlunos;
+	private ArrayList<Aluno> alunosQueRespondem;
+	
+	public ControleAlunos() {
+		this.alunos = new HashMap<>();
+		this.gruposEstudo = new HashMap<>();
+		this.cursosAlunos = new HashMap<>();
+		this.alunosQueRespondem = new ArrayList<Aluno>();
+	}
+	
+	public boolean isAlunoPresente(String matricula) {
+		return this.alunos.containsKey(matricula);
+	}
+	
+	public boolean isGrupoPresente(String nome) {
+		return this.gruposEstudo.containsKey(nome);
+	}
+	
+	public boolean cadastraAluno(String matricula, String nome, String curso) {
+		boolean retorno = false;
+		
+		if (!this.isAlunoPresente(matricula)) {
+			Aluno aluno = new Aluno(matricula, nome, curso);
+			this.alunos.put(matricula, aluno);
+			
+			String cursoMinusculo = curso.toLowerCase();
+			if (!this.cursosAlunos.containsKey(cursoMinusculo)) {
+				this.cursosAlunos.put(cursoMinusculo, 0);
+			}
+			
+			retorno = true;
+		}
+		return retorno;
+	}
+	
+	public String exibeAluno(String matricula) {
+		String retorno = "";
+		if (this.isAlunoPresente(matricula)) {
+			retorno =  "Aluno: " + this.alunos.get(matricula).toString();
+		}
+		return retorno;
+	}
+	
+	public boolean cadastraGrupo(String nome, String restricao) {
+		boolean retorno = false;
+		
+		if (!this.isGrupoPresente(nome)) {
+			GrupoEstudo grupo = new GrupoEstudo(nome, restricao);
+			this.gruposEstudo.put(nome, grupo);
+			
+			String restricaoMinuscula = restricao.toLowerCase();
+			for (String curso : this.cursosAlunos.keySet()) {
+				if (restricaoMinuscula.equals(curso)) {
+					this.cursosAlunos.put(curso, this.cursosAlunos.get(curso)+1);
+					break;
+				}
+			}
+			
+			retorno = true;
+		}
+		return retorno;
+	}
+	
+	public boolean alocaAlunoGrupo(String matricula, String nomeGrupo) {
+		boolean retorno = false;
+		Aluno aluno = this.alunos.get(matricula);
+		GrupoEstudo grupo = this.gruposEstudo.get(nomeGrupo);
+		
+		if (
+				(this.isAlunoPresente(matricula) && 
+				this.isGrupoPresente(nomeGrupo)) && 
+				(aluno.getCurso().equals(grupo.getRestricao()) || 
+				grupo.getRestricao().trim().equals(""))) {
+			
+			grupo.adicionaAluno(aluno);
+			retorno = true;
+		}
+		return retorno;
+	}
+	
+	public boolean pertinenciaGrupo(String nomeGrupo, String matriculaAluno) {
+		boolean retorno = false;
+		Aluno aluno = this.alunos.get(matriculaAluno);
+		GrupoEstudo grupo = this.gruposEstudo.get(nomeGrupo);
+		
+		if (this.isGrupoPresente(nomeGrupo) && 
+				this.isAlunoPresente(matriculaAluno) && 
+				grupo.getAlunos().contains(aluno)) {
+			retorno = true;
+		}
+		return retorno;
+	}
+	
+	public boolean cadastraAlunoQueResponde(String matricula) {
+		boolean retorno = false;
+		
+		if (this.isAlunoPresente(matricula)) {
+			this.alunosQueRespondem.add(this.alunos.get(matricula));
+			retorno = true;
+		}
+		return retorno;
+	}
+	
+	public String listaAlunosQueRespondem() {
+		String retorno = "\nAlunos: ";
+		int contador = 1;
+		
+		for (Aluno aluno : this.alunosQueRespondem) {
+			retorno += "\n" + contador + ". " + aluno.toString();
+			contador++;
+		}
+		return retorno;
+	}
+	
+	public String contagemGruposRestricao() {
+		String retorno = "";
+		for (String curso : this.cursosAlunos.keySet()) {
+			String cursoFormatado = curso.substring(0, 1).toUpperCase().concat(curso.substring(1));
+			retorno += "\nCurso: " + cursoFormatado 
+					+ "\n" + cursoFormatado 
+					+ " " + this.cursosAlunos.get(curso) + "\n";
+		}
+		return retorno;
+	}
+	
+	public HashMap<String, GrupoEstudo> getGruposEstudo() {
+		return this.gruposEstudo;
+	}
+}

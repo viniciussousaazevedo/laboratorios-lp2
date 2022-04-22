@@ -1,0 +1,9 @@
+package ufcg.ccc.domino;
+
+public class PecaComum extends Peca {
+
+	public PecaComum(int numEsquerdo, int numDireito) {
+		super(numEsquerdo, numDireito);
+	}
+
+}

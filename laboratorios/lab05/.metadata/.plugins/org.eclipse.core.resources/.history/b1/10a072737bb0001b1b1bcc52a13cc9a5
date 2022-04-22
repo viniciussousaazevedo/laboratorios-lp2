@@ -1,0 +1,36 @@
+package ufcg.ccc.domino;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import ufcg.ccc.domino.estrategia.EstrategiaDeJogo;
+import ufcg.ccc.domino.estrategia.EstrategiaInvalidaException;
+import ufcg.ccc.domino.estrategia.JogaPecaComNumMaisRepetido;
+import ufcg.ccc.domino.estrategia.JogaPrimeiraCarrocaPossivel;
+import ufcg.ccc.domino.estrategia.JogaPrimeiraPossivel;
+
+public class CampeonatoBrutal {
+	
+	private static final int NUM_PECAS_INICIAL = 12;
+	private static final int REPETICOES = 50000;
+	
+	public static void main(String args[]) throws EstrategiaInvalidaException, JogadaInvalidaException {
+		Scanner sc = new Scanner(System.in);
+		ArrayList<EstrategiaDeJogo> estrategiasDisponiveis = new ArrayList<>(List.of(new JogaPrimeiraPossivel(), new JogaPrimeiraCarrocaPossivel(), new JogaPecaComNumMaisRepetido()));
+		EstrategiaDeJogo estrategiaEscolhida;
+		int contador = 1;
+		
+		System.out.println("Olá! Seja bem vindo ao campeonato brutal de dominós =D"
+				+ "\n\nDê uma olhada em quais estratégias estão disponíveis no momento:");
+		
+		for (int i = 0; i < estrategiasDisponiveis.size(); i++) {
+			System.out.println(i + " - " + estrategiasDisponiveis.get(i));
+		}
+		
+		System.out.print("\n\nQual será a estratégia que participará do campeonato brutal? Indique pelo número da lista: ");
+		int numEstrategiaEscolhida = sc.nextInt();
+		
+		estrategiaEscolhida = estrategiasDisponiveis.get(numEstrategiaEscolhida);
+	}
+}

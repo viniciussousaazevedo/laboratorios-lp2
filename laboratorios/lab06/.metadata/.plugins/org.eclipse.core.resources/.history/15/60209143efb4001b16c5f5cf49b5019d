@@ -1,0 +1,29 @@
+package ufcg.ccc.domino.estrategia;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import ufcg.ccc.domino.JogadaInvalidaException;
+import ufcg.ccc.domino.Mesa;
+import ufcg.ccc.domino.Peca;
+
+class EstrategiaDeJogoCompostaTest {
+
+	private EstrategiaDeJogo estrategia;
+	private Mesa mesa;
+	
+	@BeforeEach
+	void setUp() throws JogadaInvalidaException {
+		ArrayList<EstrategiaDeJogo> estrategias = new ArrayList<>(List.of(new JogaPrimeiraPossivel(), new JogaPrimeiraCarrocaPossivel()));
+		estrategia = new EstrategiaDeJogoComposta(estrategias);
+		this.mesa = new Mesa();
+		this.mesa.jogaNaDireita(new Peca(0, 6));
+	}
+	
+	
+}

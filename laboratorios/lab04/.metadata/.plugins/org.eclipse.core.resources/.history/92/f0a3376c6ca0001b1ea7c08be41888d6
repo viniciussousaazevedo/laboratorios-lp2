@@ -1,0 +1,48 @@
+package app;
+
+public class ControleAlunos {
+    private HashSet<Aluno> alunos;
+    private ArrayList<Aluno> alunosQueRespondem;
+    private HashSet<GrupoEstudo> gruposEstudo;
+    
+    public boolean isAlunoValido(String matricula){
+
+    }
+
+    public boolean isGrupoValido(String nome){
+
+    }
+
+    public boolean cadastraAluno(String matricula, String nome, String curso){
+
+    }
+
+    public String exibeAluno(String matricula){
+
+    }
+
+    public boolean cadastraGrupo(String nome, String restricao){
+
+    }
+
+    public boolean alocaAlunoGrupo(String matricula, String grupo){
+
+    }
+
+    public boolean pertinenciaGrupo(String nomeGrupo, String matriculaAluno){
+
+    }
+
+    public boolean cadastraAlunoQueResponde(String matricula){
+
+    }
+
+    public String listaAlunosQueRespondem(){
+
+    }
+
+    public String contagemGruposRestricao(){
+
+    }
+
+}

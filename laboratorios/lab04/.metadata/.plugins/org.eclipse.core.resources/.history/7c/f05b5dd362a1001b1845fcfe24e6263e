@@ -1,0 +1,29 @@
+package tests;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import controleAlunos.Aluno;
+import controleAlunos.GrupoEstudo;
+
+class GrupoEstudoTest {
+
+	private GrupoEstudo grupo;
+	
+	@BeforeEach
+	void initGrupoEstudo() {
+		grupo = new GrupoEstudo("Amigos", "Computação");
+	}
+	
+	@Test
+	void testAdicionaAluno() {
+		Aluno aluno = new Aluno("Vinícius", "120", "Computação");
+		
+		assertNull(this.grupo.getAlunos());
+		grupo.adicionaAluno(aluno);
+		assertEquals("", this.grupo.getAlunos());
+	}
+
+}

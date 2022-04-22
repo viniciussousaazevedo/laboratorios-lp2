@@ -1,0 +1,103 @@
+package controleAlunos;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		ControleAlunos controle = new ControleAlunos();
+		
+		while (true) {
+			menu(controle);
+		}
+	}
+	
+	public static void menu(ControleAlunos controle) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print(
+				"\n(C)adastrar Aluno\n"
+				+ "(E)xibir Aluno\n"
+				+ "(N)ovo Grupo\n"
+				+ "(A)locar Aluno on Grupo e Verificar pertiência a Grupos\n"
+				+ "(R)egistrar Aluo que Respondeu\n"
+				+ "(I)mprimir Alunos que Responderam\n"
+				+ "(O)xe, e a contagem dos grupos com restrição de curso?\n"
+				+ "(S)im, quero fechar o programa!\n\n"
+				+ "Opção> "
+				);
+		String opcao = sc.nextLine().toLowerCase();
+		comando(sc, opcao, controle);
+	}
+	
+	public static void comando(Scanner sc, String opcao, ControleAlunos controle) {
+		switch (opcao) {
+			case "c":
+				cadastraAluno(sc, controle);
+				break;
+			case "e":
+				exibeAluno(sc, controle);
+				break;
+			case "n":
+				cadastraGrupo(sc, controle);
+				break;
+			case "a":
+				alocaAlunoGrupo(sc, controle);
+				break;
+			case "r":
+				cadastraAlunoQueResponde(sc, controle);
+				break;
+			case "i":
+				listaAlunosQueRespondem(controle);
+				break;
+			case "o":
+				contagemGruposRestricao(controle);
+				break;
+			case "s":
+				sair();
+				break;
+			default:
+				comandoInvalido();
+		}
+	}
+	
+	public static void cadastraAluno(Scanner sc, ControleAlunos controle) {
+		
+	}
+	
+	public static void exibeAluno(Scanner sc, ControleAlunos controle) {
+		
+	}
+	
+	public static void cadastraGrupo(Scanner sc, ControleAlunos controle) {
+		
+	}
+	
+	public static void alocaAlunoGrupo(Scanner sc, ControleAlunos controle) {
+		
+	}
+	
+	public static void pertinenciaGrupo(Scanner sc, ControleAlunos controle) {
+		
+	}
+	
+	public static void cadastraAlunoQueResponde(Scanner sc, ControleAlunos controle) {
+		
+	}
+	
+	public static void listaAlunosQueRespondem(ControleAlunos controle) {
+		
+	}
+	
+	public static void contagemGruposRestricao(ControleAlunos controle) {
+		
+	}
+	
+	public static void sair() {
+		System.exit(0);
+	}
+	
+	public static void comandoInvalido() {
+		throw new IllegalArgumentException("INSIRA UM VALOR VÁLIDO!\n");
+	}
+}

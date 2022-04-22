@@ -1,0 +1,54 @@
+package app;
+
+public class Main {
+    
+    
+    public void main(String[] args){
+
+    }
+
+    public void menu(){
+
+    }
+
+    public void comando(){
+
+    }
+
+    public void cadastraAluno(){
+
+    }
+
+    public void exibeAluno(){
+
+    }
+
+    public void cadastraGrupo(){
+
+    }
+
+    public void alocaAlunoGrupo(){
+
+    }
+
+    public void pertinenciaGrupo(){
+
+    }
+
+    public void cadastraAlunoQueResponde(){
+
+    }
+
+    public void listaAlunosQueRespondem(){
+
+    }
+
+    public void contagemGruposRestricao(){
+
+    }
+
+    public void sair(){
+
+    }
+
+}

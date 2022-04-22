@@ -1,0 +1,129 @@
+package tests;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import controleAlunos.Aluno;
+import controleAlunos.ControleAlunos;
+
+class ControleAlunosTest {
+
+	private ControleAlunos controle;
+	
+	@BeforeEach
+	void initControleAlunos() {
+		this.controle = new ControleAlunos();
+		this.controle.cadastraAluno("250", "Gabriel Reyes", "Computação");
+		this.controle.cadastraAluno("200","Lili Camposh", "Computação");
+		this.controle.cadastraAluno("202","Angela Ziegier", "Medicina");
+		this.controle.cadastraAluno("201","Torbjorn Lindholm", "Engenharia Mecânica");
+	}
+	
+	@Test
+	void testCadastraAlunoExistente() {
+		assertFalse(this.controle.cadastraAluno("250", "", ""));
+	}
+	
+	@Test
+	void testCadastraGrupoSemRestricao() {
+		assertTrue(this.controle.cadastraGrupo("Programação OO", ""));
+		assertEquals("", this.controle.getGruposEstudo().get("Programação OO").getRestricao());
+	}
+	
+	@Test
+	void testCadastraGrupoComRestricao() {
+		assertTrue(this.controle.cadastraGrupo("Listas", "Computação"));
+		assertEquals("Computação", this.controle.getGruposEstudo().get("Listas").getRestricao());
+	}
+	
+	@Test
+	void testCadastraGrupoNomeExistente() {
+		this.controle.cadastraGrupo("Listas", "Computação");
+		assertFalse(this.controle.cadastraGrupo("Listas", ""));
+	}
+
+	@Test
+	void AlocarAlunoGrupo() {
+		this.controle.cadastraGrupo("Programação OO", "");
+		
+		assertEquals(0 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		assertTrue(controle.alocaAlunoGrupo("200", "Programação OO"));
+		assertEquals(1 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		assertTrue(controle.alocaAlunoGrupo("202", "Programação OO"));
+		assertEquals(2 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		assertTrue(controle.alocaAlunoGrupo("200", "Programação OO"));
+		assertEquals(2 , this.controle.getGruposEstudo().get("Programação OO").getAlunos().size());
+		
+	}
+
+	@Test
+	void testAlocaAlunoNull() {
+		this.controle.cadastraGrupo("Programação OO", "");
+		assertFalse(controle.alocaAlunoGrupo("100", "Programação OO"));
+	}
+
+	@Test
+	void testAlocaGrupoNull() {
+		assertFalse(controle.alocaAlunoGrupo("200", "Anatomia"));
+	}
+
+	@Test
+	void testAlocaAlunoGrupoRestrito() {
+		controle.cadastraGrupo("Listas", "Computação");
+		
+		assertTrue(controle.alocaAlunoGrupo("250", "Listas"));
+		assertFalse(controle.alocaAlunoGrupo("202", "Listas"));
+	}
+	
+	@Test
+	void testPertinencia() {
+		controle.cadastraGrupo("Listas", "Computação");
+		controle.alocaAlunoGrupo("250", "Listas");
+		controle.alocaAlunoGrupo("202", "Listas");
+		
+		assertTrue(controle.pertinenciaGrupo("Listas", "250"));
+		assertFalse(controle.pertinenciaGrupo("Listas", "202"));
+	}
+	
+	@Test
+	void testPertinenciaInvalida() {
+		controle.cadastraGrupo("Listas", "Computação");
+		controle.alocaAlunoGrupo("250", "Listas");
+		controle.alocaAlunoGrupo("202", "Listas");
+		
+		assertFalse(controle.pertinenciaGrupo("List", "250"));
+		assertFalse(controle.pertinenciaGrupo("Listas", "300"));
+	}
+	
+	@Test
+	void testCadastraAlunoQueResponde() {
+		assertTrue(controle.cadastraAlunoQueResponde("250"));
+		assertFalse(controle.cadastraAlunoQueResponde("100"));
+	}
+
+	@Test
+	void testListaAlunosQueRespondem() {
+		controle.cadastraAlunoQueResponde("250");
+		controle.cadastraAlunoQueResponde("200");
+		controle.cadastraAlunoQueResponde("202");
+		
+		assertEquals("\nAlunos:\n"
+				+ "1. 250 - Gabriel Reyes - Computação\n"
+				+ "2. 200 - Lili Camposh - Computação\n"
+				+ "3. 202 - Angela Ziegler - Medicina", this.controle.listaAlunosQueRespondem());
+	}
+	
+	@Test
+	void testContagemGruposRestricao() {
+		controle.cadastraGrupo("Listas", "Computação");
+		
+		assertEquals("\nCurso: Engenharia mecânica\n"
+				+ "Engenharia mecânica 0\n"
+				+ "\nCurso: Computação\n"
+				+ "Computação 1\n"
+				+ "\nCurso: Medicina\n"
+				+ "Medicina 0\n", controle.contagemGruposRestricao());
+	}
+}

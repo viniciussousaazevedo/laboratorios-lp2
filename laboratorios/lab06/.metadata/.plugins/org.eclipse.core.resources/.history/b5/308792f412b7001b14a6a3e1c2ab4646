@@ -1,0 +1,9 @@
+package ufcg.ccc.domino;
+
+public class PecaPersonalizada extends Peca {
+
+	public PecaPersonalizada(int numEsquerdo, int numDireito) {
+		super(numEsquerdo, numDireito);
+	}
+
+}
