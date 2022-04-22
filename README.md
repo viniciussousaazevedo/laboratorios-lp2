@@ -1,5 +1,5 @@
-# laboratorios lp2
- Laboratórios práticos da disciplina de Laboratório de Programação II
+# Laboratórios Práticos - Laboratório de Programação II
+ Este repositório contém os laboratórios práticos da disciplina de Laboratórios práticos da disciplina de Laboratório de Programação II, exercitando POO em Java e seus principais aspectos. A disciplina foi concluída no primeiro semestre de 2021.
 
 Documentos com especificação dos laboratórios:
 - [Lab02](https://docs.google.com/document/d/1EBPVpS8Xtl7VLBlqNdhnMmA3yqyxyf7wi4ipR-34cSw/edit#)
